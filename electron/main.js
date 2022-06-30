@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-06-30 10:01:16
+ * @LastEditTime: 2022-06-30 10:30:44
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -47,6 +47,24 @@ function createWindow() {
 // 部分 API 在 ready 事件触发后才能使用。
 app.whenReady().then(() => {
 	createWindow();
+
+	// electron 拦截所有页面跳转
+	mainWindow.webContents.on("will-navigate", (e, url) => {
+		e.preventDefault();
+		console.log(url);
+		// shell.openExternal(url);
+	});
+
+	// 处理 window.open 跳转
+	mainWindow.webContents.setWindowOpenHandler((data) => {
+		// shell.openExternal(data.url);
+		console.log(data);
+		return {
+			action: "deny",
+		};
+	});
+
+	// 允许跨域
 	mainWindow.webContents.session.webRequest.onBeforeSendHeaders(
 		(details, callback) => {
 			callback({
@@ -54,7 +72,6 @@ app.whenReady().then(() => {
 			});
 		}
 	);
-
 	mainWindow.webContents.session.webRequest.onHeadersReceived(
 		(details, callback) => {
 			callback({
@@ -65,6 +82,7 @@ app.whenReady().then(() => {
 			});
 		}
 	);
+
 	app.on("activate", function () {
 		// 通常在 macOS 上，当点击 dock 中的应用程序图标时，如果没有其他
 		// 打开的窗口，那么程序会重新创建一个窗口。
