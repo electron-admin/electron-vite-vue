@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-06-30 11:39:24
+ * @LastEditTime: 2022-06-30 12:08:48
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -24,6 +24,7 @@ function createWindow() {
 		// Electron获取屏幕工作窗口尺寸
 		width: screen.getPrimaryDisplay().workAreaSize.width,
 		height: screen.getPrimaryDisplay().workAreaSize.height,
+		icon: path.resolve(__dirname, "favicon_256.ico"),
 		webPreferences: {
 			preload: path.join(__dirname, "preload.js"),
 		},
