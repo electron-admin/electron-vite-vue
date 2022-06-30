@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-06-30 09:49:05
- * @LastEditTime: 2022-06-30 11:07:08
+ * @LastEditTime: 2022-06-30 12:18:53
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\src\env.d.ts
@@ -19,7 +19,16 @@ declare module "*.vue" {
 	const component: DefineComponent<{}, {}, any>;
 	export default component;
 }
+
 declare global {
+	interface ImportMetaEnv {
+		readonly VITE_APP_BASE_URL: string;
+		// more env variables...
+	}
+
+	interface ImportMeta {
+		readonly env: ImportMetaEnv;
+	}
 	interface ResponseSuccess<T = {}> {
 		success: boolean;
 		errorMessage?: string;

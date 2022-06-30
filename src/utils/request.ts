@@ -13,7 +13,10 @@
  */
 import { message } from "ant-design-vue";
 import axios from "axios";
+const baseURL = import.meta.env.VITE_APP_BASE_URL;
 const request = axios.create({
+	// VITE_APP_BASE_URL
+	baseURL: baseURL ? baseURL : "/",
 	timeout: 5000,
 });
 request.interceptors.request.use((c) => {

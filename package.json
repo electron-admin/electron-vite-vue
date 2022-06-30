@@ -14,7 +14,7 @@
 	"repository": "https://github.com/electron-admin/electron-vite-vue",
 	"scripts": {
 		"electron:serve": "concurrently -k \"pnpm run dev\" \"pnpm run electron\"",
-		"electron:build": "vite build && electron-builder",
+		"electron:build": "pnpm run build && electron-builder",
 		"dev": "vite",
 		"build": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview",
