@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-06-30 09:49:05
- * @LastEditTime: 2022-06-30 10:10:17
+ * @LastEditTime: 2022-06-30 11:12:19
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\vite.config.ts
@@ -16,6 +16,14 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: "./",
 	plugins: [vue()],
+	base: "./",
+	server: {
+		port: 3008,
+		proxy: {
+			"^/admin": {
+				target: "http://localhost:3006",
+			},
+		},
+	},
 });

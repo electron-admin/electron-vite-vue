@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-06-30 10:30:44
+ * @LastEditTime: 2022-06-30 11:39:24
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -11,7 +11,7 @@
  * 善始者实繁 , 克终者盖寡
  * Copyright (c) 2022 by 最爱白菜吖, All Rights Reserved.
  */
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, screen } = require("electron");
 const path = require("path");
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 
@@ -21,8 +21,9 @@ let mainWindow;
 function createWindow() {
 	// 创建浏览器窗口
 	mainWindow = new BrowserWindow({
-		width: 800,
-		height: 600,
+		// Electron获取屏幕工作窗口尺寸
+		width: screen.getPrimaryDisplay().workAreaSize.width,
+		height: screen.getPrimaryDisplay().workAreaSize.height,
 		webPreferences: {
 			preload: path.join(__dirname, "preload.js"),
 		},
@@ -32,8 +33,8 @@ function createWindow() {
 	// mainWindow.loadFile('dist/index.html') 将该行改为下面这一行，加载url
 	mainWindow.loadURL(
 		NODE_ENV === "development"
-			? "http://localhost:3000"
-			: `file://${path.join(__dirname, "../dist/index.html")}`
+			? "http://localhost:3008"
+			: `file://${path.join(__dirname, "../dist/index.html#/")}`
 	);
 
 	// 打开开发工具

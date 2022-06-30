@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-06-30 10:39:59
- * @LastEditTime: 2022-06-30 10:41:41
+ * @LastEditTime: 2022-06-30 11:29:00
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\src\utils\request.ts
@@ -28,13 +28,11 @@ request.interceptors.request.use((c) => {
 });
 request.interceptors.response.use(
 	(res) => {
-		console.log(res);
-
 		return res.data;
 	},
 	(e) => {
-		message.error(e.response.data.errorMessage || e.message);
-		return Promise.reject(e.response.data.errorMessage);
+		message.error(e.message);
+		return Promise.reject(e.message);
 	}
 );
 export default request;

@@ -18,7 +18,7 @@
 		"dev": "vite",
 		"build": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview",
-		"electron": "wait-on tcp:3000 && cross-env NODE_ENV=development electron ."
+		"electron": "wait-on tcp:3008 && cross-env NODE_ENV=development electron ."
 	},
 	"build": {
 		"productName": "electron-vite-vue",
@@ -40,6 +40,7 @@
 		}
 	},
 	"dependencies": {
+		"@ant-design/icons-vue": "^6.1.0",
 		"ant-design-vue": "^3.2.9",
 		"axios": "^0.27.2",
 		"pinia": "^2.0.14",
@@ -52,6 +53,7 @@
 		"cross-env": "^7.0.3",
 		"electron": "^19.0.6",
 		"electron-builder": "^23.1.0",
+		"sass": "^1.53.0",
 		"typescript": "^4.5.4",
 		"vite": "^2.9.9",
 		"vue-tsc": "^0.34.7",
