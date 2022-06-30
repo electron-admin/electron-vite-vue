@@ -21,8 +21,8 @@
 		"electron": "wait-on tcp:3000 && cross-env NODE_ENV=development electron ."
 	},
 	"build": {
-		"productName": "electron-vite",
-		"copyright": "Copyright © 2021 hanyun",
+		"productName": "electron-vite-vue",
+		"copyright": "Copyright © 2022 武汉跃码教育科技有限公司",
 		"mac": {
 			"category": "public.app-category.utilities"
 		},
