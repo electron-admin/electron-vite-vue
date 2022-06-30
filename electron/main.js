@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-06-30 12:08:48
+ * @LastEditTime: 2022-06-30 13:32:46
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -35,7 +35,7 @@ function createWindow() {
 	mainWindow.loadURL(
 		NODE_ENV === "development"
 			? "http://localhost:3008"
-			: `file://${path.join(__dirname, "../dist/index.html#/")}`
+			: `file://${path.join(__dirname, "../dist/index.html")}`
 	);
 
 	// 打开开发工具
