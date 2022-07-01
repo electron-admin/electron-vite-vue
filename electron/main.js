@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-06-30 13:32:46
+ * @LastEditTime: 2022-07-01 23:56:34
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -11,7 +11,15 @@
  * 善始者实繁 , 克终者盖寡
  * Copyright (c) 2022 by 最爱白菜吖, All Rights Reserved.
  */
-const { app, BrowserWindow, screen } = require("electron");
+const {
+	app,
+	BrowserWindow,
+	screen,
+	Tray,
+	Menu,
+	nativeImage,
+	dialog,
+} = require("electron");
 const path = require("path");
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 
@@ -28,6 +36,33 @@ function createWindow() {
 		webPreferences: {
 			preload: path.join(__dirname, "preload.js"),
 		},
+	});
+
+	mainWindow.on("close", (e) => {
+		if (app.quitting) {
+			e.preventDefault();
+			console.log(1111);
+			dialog
+				.showMessageBox(mainWindow, {
+					type: "info",
+					title: "退出" + app.name,
+					defaultId: 0,
+					cancelId: 1,
+					message: "确定要退出吗？",
+					buttons: ["退出", "取消"],
+				})
+				.then((r) => {
+					if (r.response === 0) {
+						e.preventDefault(); //阻止默认行为，一定要有
+						mainWindow = null;
+						app.exit(); //exit()直接关闭客户端，不会执行quit();
+					}
+				});
+			app.quitting = false;
+		} else {
+			e.preventDefault();
+			mainWindow.hide();
+		}
 	});
 
 	// 加载 index.html
@@ -49,7 +84,51 @@ function createWindow() {
 // 部分 API 在 ready 事件触发后才能使用。
 app.whenReady().then(() => {
 	createWindow();
-
+	// 托盘图标
+	const icon = nativeImage.createFromPath(
+		path.resolve(__dirname, "favicon_256.ico")
+	);
+	const tray = new Tray(icon);
+	const contextMenu = Menu.buildFromTemplate([
+		{ label: "武汉跃码教育科技有限公司", type: "normal" },
+		{ label: "QQ交流群：976961880", type: "normal" },
+		{
+			label: "显示",
+			click: () => {
+				mainWindow.restore();
+				mainWindow.focus();
+			},
+		},
+		{
+			role: "minimize",
+			label: "最小化",
+			click: () => {
+				mainWindow.minimize();
+			},
+		},
+		{
+			role: "togglefullscreen",
+			label: "全屏",
+			click: () => {
+				mainWindow.setFullScreen(mainWindow.isFullScreen() !== true);
+			},
+		},
+		{
+			label: "退出",
+			click: () => {
+				app.quitting = true;
+				app.quit();
+			},
+		},
+	]);
+	tray.setToolTip("electron-vite-vue\n武汉跃码教育科技有限公司");
+	tray.setContextMenu(contextMenu);
+	tray.on("right-click", () => {
+		tray.popUpContextMenu(contextMenu);
+	});
+	tray.on("click", (e, bounds) => {
+		mainWindow.show();
+	});
 	// electron 拦截所有页面跳转
 	mainWindow.webContents.on("will-navigate", (e, url) => {
 		e.preventDefault();
@@ -85,7 +164,7 @@ app.whenReady().then(() => {
 		}
 	);
 
-	app.on("activate", function () {
+	app.on("activate", function (e) {
 		// 通常在 macOS 上，当点击 dock 中的应用程序图标时，如果没有其他
 		// 打开的窗口，那么程序会重新创建一个窗口。
 		if (BrowserWindow.getAllWindows().length === 0) createWindow();
