@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-07-02 13:59:36
+ * @LastEditTime: 2022-07-02 14:09:04
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -122,6 +122,7 @@ app.whenReady().then(() => {
 			label: "显示",
 			click: () => {
 				mainWindow.restore();
+				mainWindow.show();
 				mainWindow.focus();
 			},
 		},
@@ -159,7 +160,7 @@ app.whenReady().then(() => {
 	tray.on("right-click", () => {
 		tray.popUpContextMenu(contextMenu);
 	});
-	tray.on("click", (e, bounds) => {
+	tray.on("click", () => {
 		mainWindow.show();
 	});
 	// electron 拦截所有页面跳转
