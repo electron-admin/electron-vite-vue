@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-07-02 13:33:35
+ * @LastEditTime: 2022-07-02 13:59:36
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -100,7 +100,24 @@ app.whenReady().then(() => {
 				);
 			},
 		},
-		{ label: "QQ交流群：976961880", type: "normal" },
+		{
+			label: "QQ交流1群",
+			type: "normal",
+			click: async () => {
+				await shell.openExternal(
+					"http://qm.qq.com/cgi-bin/qm/qr?k=J_cuD735wsluYuqT62WIf5OCLS7qRh1W&jump_from=webapi"
+				);
+			},
+		},
+		{
+			label: "QQ交流3群",
+			type: "normal",
+			click: async () => {
+				await shell.openExternal(
+					"https://qm.qq.com/cgi-bin/qm/qr?k=cf5oBj3Tl9TsJ3Mk-ILzVJYi-F7tBEvI&jump_from=webapi"
+				);
+			},
+		},
 		{
 			label: "显示",
 			click: () => {
