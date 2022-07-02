@@ -1,7 +1,7 @@
 <!--
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-06-30 09:49:05
- * @LastEditTime: 2022-06-30 11:11:23
+ * @LastEditTime: 2022-07-02 13:31:05
  * @LastEditors: 寒云
  * @Description: 
  * @FilePath: \electron-vite-vue\src\App.vue
@@ -18,8 +18,24 @@
 
 <template>
   <router-view></router-view>
+  <div id="qq-group">
+    <a target="_blank" href="http://qm.qq.com/cgi-bin/qm/qr?k=J_cuD735wsluYuqT62WIf5OCLS7qRh1W&jump_from=webapi"><img
+        border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="web/react/vue/ts" title="web/react/vue/ts"></a>
+
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=cf5oBj3Tl9TsJ3Mk-ILzVJYi-F7tBEvI&jump_from=webapi"><img
+        border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="web/react/vue/ts-3" title="web/react/vue/ts-3"></a>
+  </div>
 
 </template>
 
 <style>
+#qq-group {
+  position: fixed;
+  right: 18px;
+  top: 300px;
+}
+
+#qq-group a {
+  display: block;
+}
 </style>

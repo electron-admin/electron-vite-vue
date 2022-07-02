@@ -1,7 +1,7 @@
 /*
  * @Author: 寒云 <1355081829@qq.com>
  * @Date: 2022-03-08 15:34:46
- * @LastEditTime: 2022-07-01 23:56:34
+ * @LastEditTime: 2022-07-02 13:33:35
  * @LastEditors: 寒云
  * @Description:
  * @FilePath: \electron-vite-vue\electron\main.js
@@ -19,6 +19,7 @@ const {
 	Menu,
 	nativeImage,
 	dialog,
+	shell,
 } = require("electron");
 const path = require("path");
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
@@ -90,7 +91,15 @@ app.whenReady().then(() => {
 	);
 	const tray = new Tray(icon);
 	const contextMenu = Menu.buildFromTemplate([
-		{ label: "武汉跃码教育科技有限公司", type: "normal" },
+		{
+			label: "仓库地址",
+			type: "normal",
+			click: async () => {
+				await shell.openExternal(
+					"https://github.com/electron-admin/electron-vite-vue"
+				);
+			},
+		},
 		{ label: "QQ交流群：976961880", type: "normal" },
 		{
 			label: "显示",
@@ -104,6 +113,13 @@ app.whenReady().then(() => {
 			label: "最小化",
 			click: () => {
 				mainWindow.minimize();
+			},
+		},
+		{
+			role: "hide",
+			label: "隐藏",
+			click: () => {
+				mainWindow.hide();
 			},
 		},
 		{
@@ -138,11 +154,15 @@ app.whenReady().then(() => {
 
 	// 处理 window.open 跳转
 	mainWindow.webContents.setWindowOpenHandler((data) => {
-		// shell.openExternal(data.url);
 		console.log(data);
-		return {
-			action: "deny",
-		};
+		// 允许打开添加QQ群链接
+		if (data.url && data.url.includes("qm.qq.com")) {
+			shell.openExternal(data.url);
+		} else {
+			return {
+				action: "deny",
+			};
+		}
 	});
 
 	// 允许跨域
